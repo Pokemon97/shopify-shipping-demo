@@ -2,18 +2,18 @@
 
 name = "shipping-demo"
 client_id = "3def6a3ea0ca5f7bedd549489eb4d331"
-application_url = "https://proceeding-table-literary-wikipedia.trycloudflare.com"
+application_url = "https://undefined-currencies-expensive-yarn.trycloudflare.com"
 embedded = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products"
+scopes = "write_products,write_shipping,write_assigned_fulfillment_orders"
 
 [auth]
 redirect_urls = [
-  "https://proceeding-table-literary-wikipedia.trycloudflare.com/auth/callback",
-  "https://proceeding-table-literary-wikipedia.trycloudflare.com/auth/shopify/callback",
-  "https://proceeding-table-literary-wikipedia.trycloudflare.com/api/auth/callback"
+  "https://undefined-currencies-expensive-yarn.trycloudflare.com/auth/callback",
+  "https://undefined-currencies-expensive-yarn.trycloudflare.com/auth/shopify/callback",
+  "https://undefined-currencies-expensive-yarn.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

@@ -10,26 +10,25 @@ import {
 } from "@shopify/polaris";
 import { json } from "@remix-run/node";
 import { useLoaderData} from "@remix-run/react";
-import { getListCarrieres, checkExistByName }  from "../models/carrieres.demo"
+import { authenticate } from "../shopify.server";
+import { checkIfCarrierExistByName } from "~/models/carrieres.demo";
 
-export async function loader() {
-  const listCarriers = await getListCarrieres();
-  const test =  await checkExistByName('Shipping Rate Provider');
+const carrierName = "Shipping Rate Provider";
+
+export async function loader({ request }) {
+  const { admin, session } = await authenticate.admin(request);
+  const carrierExist = await checkIfCarrierExistByName(session, admin.rest.resources, carrierName);
   
   return json({
     ENV: {
       SHOP: process.env.SHOP,
     },
-    carriers: listCarriers,
-    exist: test
+    carrierExist: carrierExist
   });
 }
 
 export default function AdditionalPage() {
   const data = useLoaderData();
-  console.log('----------------------------');
-  console.log(data.carriers);
-  console.log(data.exist);
   return (
     <Page>
       <ui-title-bar title="Additional page" />
@@ -38,45 +37,11 @@ export default function AdditionalPage() {
           <Card>
             <VerticalStack gap="3">
               <Text as="p" variant="bodyMd">
-                The app template comes with an additional page which
-                demonstrates how to create multiple pages within app navigation
-                using{" "}
-                <Link
-                  url="https://shopify.dev/docs/apps/tools/app-bridge"
-                  target="_blank"
-                >
-                  App Bridge
-                </Link>
-                .
-              </Text>
-              <Text as="p" variant="bodyMd">
-                To create your own page and have it show up in the app
-                navigation, add a page inside <Code>app/routes</Code>, and a
-                link to it in the <Code>&lt;ui-nav-menu&gt;</Code> component
-                found in <Code>app/routes/app.jsx</Code>.
-              </Text>
-              <Text as="p" variant="bodyMd">
                 Shop: { data.ENV.SHOP }
               </Text>
-            </VerticalStack>
-          </Card>
-        </Layout.Section>
-        <Layout.Section secondary>
-          <Card>
-            <VerticalStack gap="2">
-              <Text as="h2" variant="headingMd">
-                Resources
+              <Text as="p" variant="bodyMd">
+              Shipping Rate Provider: { data.carrierExist ? 'Installed' : 'Not Installed' }
               </Text>
-              <List spacing="extraTight">
-                <List.Item>
-                  <Link
-                    url="https://shopify.dev/docs/apps/design-guidelines/navigation#app-nav"
-                    target="_blank"
-                  >
-                    App nav best practices
-                  </Link>
-                </List.Item>
-              </List>
             </VerticalStack>
           </Card>
         </Layout.Section>
