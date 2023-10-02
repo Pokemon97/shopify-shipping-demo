@@ -1,0 +1,27 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "shipping-demo"
+client_id = "3def6a3ea0ca5f7bedd549489eb4d331"
+application_url = "https://proceeding-table-literary-wikipedia.trycloudflare.com"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products"
+
+[auth]
+redirect_urls = [
+  "https://proceeding-table-literary-wikipedia.trycloudflare.com/auth/callback",
+  "https://proceeding-table-literary-wikipedia.trycloudflare.com/auth/shopify/callback",
+  "https://proceeding-table-literary-wikipedia.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2023-10"
+
+[pos]
+embedded = false
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "quickstart-864382db.myshopify.com"
